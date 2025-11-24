@@ -575,7 +575,7 @@ btnGuardar.addEventListener('click', () => {
     try{
       const headers = await getAuthHeaders(); headers['Id-Usuario'] = String(resolvedIdForHeader);
       console.debug('POST /tratamientos payload', payload);
-      const res = await fetch('http://100.30.25.253:7000/api/tratamientos', { method: 'POST', headers, body: JSON.stringify(payload) });
+      const res = await fetch('http://100.30.25.253:7000/tratamientos', { method: 'POST', headers, body: JSON.stringify(payload) });
       const text = await res.text(); let body = text? ((()=>{ try{return JSON.parse(text);}catch(e){return text;} })()):null;
       if(!res.ok){ console.error('POST /tratamientos error', res.status, body); mostrarAlerta('Error creando tratamiento (ver consola)', 'error'); return; }
       console.debug('POST /tratamientos response', body);
