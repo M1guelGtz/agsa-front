@@ -123,7 +123,7 @@ formRegistro.addEventListener('submit', (e) => {
                 if(res.ok){
                 mostrarMensaje('Registro exitoso. Redirigiendo al inicio de sesión...', 'exito');
                 formRegistro.reset();
-                window.location.href="./"
+                window.location.href="/"
                 //setTimeout(()=> window.location.href='/', 1400);
                 return;
             } else {
@@ -133,7 +133,7 @@ formRegistro.addEventListener('submit', (e) => {
                     if (guardarUsuario(datosFormulario)){
                     mostrarMensaje('Registrado localmente (modo offline).', 'exito');
                     formRegistro.reset();
-                    window.location.href='./'
+                    window.location.href='/'
                     //setTimeout(()=> window.location.href='/', 1200);
                 }
                 return;
@@ -143,8 +143,8 @@ formRegistro.addEventListener('submit', (e) => {
             if (guardarUsuario(datosFormulario)){
                 mostrarMensaje('Registrado localmente (sin conexión).', 'exito');
                 formRegistro.reset();
-                window.location.href='./'
-                //setTimeout(()=> window.location.href='/', 1200);
+                window.location.href='/'
+                //setTimeout(()=> win   dow.location.href='/', 1200);
             }
         }
     })();
