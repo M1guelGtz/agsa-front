@@ -133,7 +133,8 @@ formRegistro.addEventListener('submit', (e) => {
                     if (guardarUsuario(datosFormulario)){
                     mostrarMensaje('Registrado localmente (modo offline).', 'exito');
                     formRegistro.reset();
-                    setTimeout(()=> window.location.href='/', 1200);
+                    window.location.href='./index.html'
+                    //setTimeout(()=> window.location.href='/', 1200);
                 }
                 return;
             }
@@ -142,7 +143,8 @@ formRegistro.addEventListener('submit', (e) => {
             if (guardarUsuario(datosFormulario)){
                 mostrarMensaje('Registrado localmente (sin conexión).', 'exito');
                 formRegistro.reset();
-                setTimeout(()=> window.location.href='/', 1200);
+                window.location.href='./index.html'
+                //setTimeout(()=> window.location.href='/', 1200);
             }
         }
     })();
