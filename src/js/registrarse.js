@@ -123,7 +123,7 @@ formRegistro.addEventListener('submit', (e) => {
                 if(res.ok){
                 mostrarMensaje('Registro exitoso. Redirigiendo al inicio de sesión...', 'exito');
                 formRegistro.reset();
-                setTimeout(()=> window.location.href='/hola', 1400);
+                setTimeout(()=> window.location.href='/', 1400);
                 return;
             } else {
                 const msg = (data && (data.message || data.error)) ? (data.message || data.error) : `Error ${res.status}`;
