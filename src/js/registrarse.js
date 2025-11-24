@@ -141,7 +141,7 @@ formRegistro.addEventListener('submit', (e) => {
             if (guardarUsuario(datosFormulario)){
                 mostrarMensaje('Registrado localmente (sin conexión).', 'exito');
                 formRegistro.reset();
-                setTimeout(()=> window.location.href='index.html', 1200);
+                setTimeout(()=> window.location.href='/', 1200);
             }
         }
     })();
