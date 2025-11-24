@@ -513,12 +513,86 @@ function editarReporte(i) {
 // ELIMINAR REPORTE
 // =====================
 async function eliminarReporte(i) {
+    // Abrir modal de confirmación persistente (se maneja en confirmarEliminarReporte)
     const r = reportes[i];
     if(!r){ mostrarAlerta('warning','Error','Reporte no encontrado'); return; }
+    reporteAEliminarIndex = i;
+    abrirModalEliminarReporte(r);
+}
 
-    // Pedir confirmación Sí/No
-    const confirmado = await mostrarConfirmacion('Eliminar reporte', '¿Estás segura de que deseas eliminar este reporte?');
-    if(!confirmado) return;
+// =====================
+// MODAL PERSISTENTE DE ELIMINAR (Reporte Médico)
+// =====================
+let reporteAEliminarIndex = null;
+// crear modal una sola vez
+if (!document.getElementById('modalEliminarReporte')) {
+    const modalEliminar = document.createElement('div');
+    modalEliminar.id = 'modalEliminarReporte';
+    modalEliminar.classList.add('modal-overlay');
+    modalEliminar.innerHTML = `
+      <div class="modal-container">
+        <div class="modal-header-custom">
+          <h2 class="modal-title-custom"><i class="fas fa-trash-alt"></i> Eliminar reporte</h2>
+          <button class="btn-close-custom" id="_closeEliminarReporte"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body-custom">
+          <div class="modal-icon-warning" style="background-color: #f8d7da;">
+            <i class="fas fa-exclamation-triangle" style="color: #721c24;"></i>
+          </div>
+          <p class="modal-message">¿Estás seguro de eliminar este reporte?</p>
+          <p class="modal-submessage" id="mensajeEliminarReporte">Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-footer-custom">
+          <button class="btn-modal-cancelar" id="btnCancelarEliminarReporte"><i class="fas fa-times"></i> Cancelar</button>
+          <button class="btn-modal-confirmar" id="btnConfirmarEliminarReporte"><i class="fas fa-trash-alt"></i> Eliminar</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modalEliminar);
+
+    // handlers
+    document.getElementById('_closeEliminarReporte').addEventListener('click', cerrarModalEliminarReporte);
+    document.getElementById('btnCancelarEliminarReporte').addEventListener('click', cerrarModalEliminarReporte);
+    document.getElementById('btnConfirmarEliminarReporte').addEventListener('click', confirmarEliminarReporte);
+
+    // cerrar con ESC
+    document.addEventListener('keydown', (e) => {
+      const el = document.getElementById('modalEliminarReporte');
+      if (e.key === 'Escape' && el && el.classList.contains('active')) cerrarModalEliminarReporte();
+    });
+
+    // click fuera para cerrar
+    document.getElementById('modalEliminarReporte').addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'modalEliminarReporte') cerrarModalEliminarReporte();
+    });
+}
+
+function abrirModalEliminarReporte(reporte) {
+    const el = document.getElementById('modalEliminarReporte');
+    if (!el) return;
+    const mensajeEl = document.getElementById('mensajeEliminarReporte');
+    if (mensajeEl) {
+        const arete = (reporte.idAnimales && (reporte.idAnimales.numArete || reporte.idAnimales.numArete === 0)) ? reporte.idAnimales.numArete : '';
+        const nombre = (reporte.idAnimales && (reporte.idAnimales.nombreAnimal || reporte.idAnimales.nombre)) ? (reporte.idAnimales.nombreAnimal || reporte.idAnimales.nombre) : '';
+        mensajeEl.textContent = `Se eliminará el reporte de ${nombre} (Arete: ${arete}). Esta acción no se puede deshacer.`;
+    }
+    el.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarModalEliminarReporte() {
+    const el = document.getElementById('modalEliminarReporte');
+    if (!el) return;
+    el.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    reporteAEliminarIndex = null;
+}
+
+async function confirmarEliminarReporte() {
+    const i = reporteAEliminarIndex;
+    if (i === null || typeof i === 'undefined') { cerrarModalEliminarReporte(); return; }
+    const r = reportes[i];
+    if(!r){ mostrarAlerta('warning','Error','Reporte no encontrado'); cerrarModalEliminarReporte(); return; }
 
     // Obtener idUsuario válido para header (preferir numérico)
     const datosUsuarioRaw = sessionStorage.getItem('datosUsuarioAgroSystem') || localStorage.getItem('datosUsuarioAgroSystem') || '';
@@ -540,6 +614,7 @@ async function eliminarReporte(i) {
 
     if(!resolvedIdForHeader){
         mostrarAlerta('warning','Usuario no válido','No se pudo determinar un id de usuario numérico para realizar la eliminación.');
+        cerrarModalEliminarReporte();
         return;
     }
 
@@ -552,12 +627,13 @@ async function eliminarReporte(i) {
         const text = await res.text();
         let body = null;
         if(text){ try{ body = JSON.parse(text); }catch(e){ body = text; } }
-        if(!res.ok){ console.error('DELETE /reportes error', res.status, body); mostrarAlerta('warning','Error','No se pudo eliminar el reporte (ver consola).'); return; }
+        if(!res.ok){ console.error('DELETE /reportes error', res.status, body); mostrarAlerta('warning','Error','No se pudo eliminar el reporte (ver consola).'); cerrarModalEliminarReporte(); return; }
         // éxito: actualizar UI
         reportes.splice(i,1);
         mostrarTabla();
         mostrarAlerta('success','Eliminado','El reporte se eliminó correctamente.');
     }catch(err){ console.error(err); mostrarAlerta('warning','Error','Error eliminando reporte'); }
+    cerrarModalEliminarReporte();
 }
 
 
