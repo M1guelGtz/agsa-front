@@ -1,4 +1,5 @@
 // Arreglo para almacenar tratamientos
+const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
 let tratamientos = [];
 let animalesList = [];
 let reportesList = [];
@@ -151,7 +152,7 @@ async function getAuthHeaders() {
 async function resolveUsuarioId(usuarioString){
   if(!usuarioString) return null;
   try{
-    const res = await fetch('http://100.30.25.253:7000/usuarios', { headers: await getAuthHeaders() });
+    const res = await fetch(`${API_BASE}/usuarios`, { headers: await getAuthHeaders() });
     const text = await res.text(); if(!res.ok){ console.warn('resolveUsuarioId failed', res.status, text); return null; }
     let list = [];
     if(text){ try{ list = JSON.parse(text); }catch(e){ console.warn('resolveUsuarioId: not JSON', text); return null; } }
@@ -174,7 +175,7 @@ function isAdmin(){ const r = getCurrentUserRole(); return r.includes('admin') |
 async function fetchAnimales(){
   try{
     console.debug('GET /animales');
-    const res = await fetch('http://100.30.25.253:7000/animales', { headers: await getAuthHeaders() });
+    const res = await fetch(`${API_BASE}/animales`, { headers: await getAuthHeaders() });
     const text = await res.text(); if(!res.ok){ console.error('Error cargando animales', res.status, text); return; }
     animalesList = text ? JSON.parse(text) : [];
     console.debug('animales loaded', animalesList);
@@ -193,7 +194,7 @@ async function fetchAnimales(){
 async function fetchReportes(){
   try{
     console.debug('GET /reportes');
-    const res = await fetch('http://100.30.25.253:7000/reportes', { headers: await getAuthHeaders() });
+    const res = await fetch(`${API_BASE}/reportes`, { headers: await getAuthHeaders() });
     const text = await res.text(); if(!res.ok){ console.error('Error cargando reportes', res.status, text); return; }
     reportesList = text ? JSON.parse(text) : [];
     console.debug('reportes loaded', reportesList);
@@ -213,7 +214,7 @@ async function fetchReportes(){
 async function fetchMedicamentos(){
   try{
     console.debug('GET /medicamento');
-    const res = await fetch('http://100.30.25.253:7000/medicamento', { headers: await getAuthHeaders() });
+    const res = await fetch(`${API_BASE}/medicamento`, { headers: await getAuthHeaders() });
     const text = await res.text(); if(!res.ok){ console.error('Error cargando medicamentos', res.status, text); return; }
     medicamentosList = text ? JSON.parse(text) : [];
     console.debug('medicamentos loaded', medicamentosList);
@@ -227,7 +228,7 @@ async function fetchMedicamentos(){
 async function fetchTratamientosFromBackend(){
   try{
     console.debug('GET /tratamientos');
-    const res = await fetch('http://100.30.25.253:7000/tratamientos', { headers: await getAuthHeaders() });
+    const res = await fetch(`${API_BASE}/tratamientos`, { headers: await getAuthHeaders() });
     const text = await res.text(); if(!res.ok){ console.error('Error cargando tratamientos', res.status, text); return; }
     const data = text ? JSON.parse(text) : [];
     // Map backend objects into a normalized array for rendering
@@ -287,7 +288,7 @@ async function updateTratamientoBackend(idTratamiento, payload, idUsuarioHeaderO
     console.debug(`PUT /tratamientos/${idTratamiento} payload`, payload);
     const headers = await getAuthHeaders();
     if(idUsuarioHeaderOverride) headers['Id-Usuario'] = String(idUsuarioHeaderOverride);
-    const res = await fetch(`http://100.30.25.253:7000/tratamientos/${idTratamiento}`, { method: 'PUT', headers, body: JSON.stringify(payload) });
+    const res = await fetch(`${API_BASE}/tratamientos/${idTratamiento}`, { method: 'PUT', headers, body: JSON.stringify(payload) });
     const text = await res.text(); let body = text? ((()=>{ try{return JSON.parse(text);}catch(e){return text;} })()):null;
     if(!res.ok){ console.error('PUT /tratamientos error', res.status, body); mostrarAlerta('Error actualizando tratamiento (ver consola)','error'); return false; }
     console.debug('PUT /tratamientos response', body);
@@ -314,7 +315,7 @@ async function deleteTratamientoBackend(idTratamiento){
 
     const headers = await getAuthHeaders(); headers['Id-Usuario'] = String(resolvedIdForHeader);
     console.debug(`DELETE /tratamientos/${idTratamiento}`);
-    const res = await fetch(`http://100.30.25.253:7000/tratamientos/${idTratamiento}`, { method: 'DELETE', headers });
+    const res = await fetch(`${API_BASE}/tratamientos/${idTratamiento}`, { method: 'DELETE', headers });
     const text = await res.text(); let body = text? ((()=>{ try{return JSON.parse(text);}catch(e){return text;} })()):null;
     if(!res.ok){ console.error('DELETE /tratamientos error', res.status, body); mostrarAlerta('No se pudo eliminar el tratamiento (ver consola)','error'); return false; }
     console.debug('DELETE /tratamientos response', body);
@@ -575,7 +576,7 @@ btnGuardar.addEventListener('click', () => {
     try{
       const headers = await getAuthHeaders(); headers['Id-Usuario'] = String(resolvedIdForHeader);
       console.debug('POST /tratamientos payload', payload);
-      const res = await fetch('http://100.30.25.253:7000/tratamientos', { method: 'POST', headers, body: JSON.stringify(payload) });
+      const res = await fetch(`${API_BASE}/tratamientos`, { method: 'POST', headers, body: JSON.stringify(payload) });
       const text = await res.text(); let body = text? ((()=>{ try{return JSON.parse(text);}catch(e){return text;} })()):null;
       if(!res.ok){ console.error('POST /tratamientos error', res.status, body); mostrarAlerta('Error creando tratamiento (ver consola)', 'error'); return; }
       console.debug('POST /tratamientos response', body);

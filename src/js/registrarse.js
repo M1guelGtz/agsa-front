@@ -1,3 +1,4 @@
+const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
 const formRegistro = document.getElementById('formRegistro');
 const togglePassword = document.getElementById('togglePassword');
 const inputContrasena = document.getElementById('contrasena');
@@ -112,7 +113,7 @@ formRegistro.addEventListener('submit', (e) => {
     // Intentar enviar al backend; si falla, usar fallback local
     (async () => {
         try{
-            const res = await fetch('http://100.30.25.253:7000/register', {
+            const res = await fetch(`${API_BASE}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -123,7 +124,8 @@ formRegistro.addEventListener('submit', (e) => {
                 if(res.ok){
                 mostrarMensaje('Registro exitoso. Redirigiendo al inicio de sesión...', 'exito');
                 formRegistro.reset();
-                window.location.href="/"
+                // redirect to main index (use absolute /ags-front/src path for deployments)
+                window.location.href = '/ags-front/src/index.html';
                 //setTimeout(()=> window.location.href='/', 1400);
                 return;
             } else {
@@ -133,7 +135,7 @@ formRegistro.addEventListener('submit', (e) => {
                     if (guardarUsuario(datosFormulario)){
                     mostrarMensaje('Registrado localmente (modo offline).', 'exito');
                     formRegistro.reset();
-                    window.location.href='/'
+                    window.location.href = '/ags-front/src/index.html';
                     //setTimeout(()=> window.location.href='/', 1200);
                 }
                 return;
@@ -143,7 +145,7 @@ formRegistro.addEventListener('submit', (e) => {
             if (guardarUsuario(datosFormulario)){
                 mostrarMensaje('Registrado localmente (sin conexión).', 'exito');
                 formRegistro.reset();
-                window.location.href='/'
+                window.location.href = '/ags-front/src/index.html';
                 //setTimeout(()=> win   dow.location.href='/', 1200);
             }
         }

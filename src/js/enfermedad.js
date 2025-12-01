@@ -78,6 +78,7 @@ document.addEventListener('keydown', (e) => {
 // ===========================
 
 // Arreglo para almacenar enfermedades
+const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
 let enfermedades = [];
 
 // Selección de elementos
@@ -156,7 +157,7 @@ async function getAuthHeaders(){
 async function fetchEnfermedadesFromBackend(){
   try{
     console.debug('GET /enfermedades');
-    const res = await fetch('http://100.30.25.253:7000/enfermedades', { headers: await getAuthHeaders() });
+    const res = await fetch(`${API_BASE}/enfermedades`, { headers: await getAuthHeaders() });
     const text = await res.text(); if(!res.ok){ console.error('Error cargando enfermedades', res.status, text); mostrarAlerta('Error cargando enfermedades (ver consola)','error'); return; }
     const data = text? JSON.parse(text) : [];
     enfermedades = (data || []).map(e => ({
@@ -179,7 +180,7 @@ async function createEnfermedadBackend(payload){
   try{
     const headers = await getAuthHeaders();
     console.debug('POST /enfermedades payload', payload);
-    const res = await fetch('http://100.30.25.253:7000/enfermedades', { method: 'POST', headers, body: JSON.stringify(payload) });
+    const res = await fetch(`${API_BASE}/enfermedades`, { method: 'POST', headers, body: JSON.stringify(payload) });
     const text = await res.text(); const body = text? (()=>{ try{return JSON.parse(text);}catch(e){return text;} })() : null;
     if(!res.ok){ console.error('POST /enfermedades error', res.status, body); mostrarAlerta('Error creando enfermedad (ver consola)','error'); return false; }
     mostrarAlerta('Enfermedad creada correctamente','success');
@@ -193,7 +194,7 @@ async function updateEnfermedadBackend(idEnfermedad, payload){
     if(!idEnfermedad) throw new Error('Missing idEnfermedad');
     const headers = await getAuthHeaders();
     console.debug(`PUT /enfermedades/${idEnfermedad} payload`, payload);
-    const res = await fetch(`http://100.30.25.253:7000/enfermedades/${idEnfermedad}`, { method: 'PUT', headers, body: JSON.stringify(payload) });
+    const res = await fetch(`${API_BASE}/enfermedades/${idEnfermedad}`, { method: 'PUT', headers, body: JSON.stringify(payload) });
     const text = await res.text(); const body = text? (()=>{ try{return JSON.parse(text);}catch(e){return text;} })() : null;
     if(!res.ok){ console.error('PUT /enfermedades error', res.status, body); mostrarAlerta('Error actualizando enfermedad (ver consola)','error'); return false; }
     mostrarAlerta('Enfermedad actualizada correctamente','success');
@@ -206,7 +207,7 @@ async function deleteEnfermedadBackend(idEnfermedad){
   try{
     if(!idEnfermedad) throw new Error('Missing idEnfermedad');
     const headers = await getAuthHeaders();
-    const res = await fetch(`http://100.30.25.253:7000/enfermedades/${idEnfermedad}`, { method: 'DELETE', headers });
+    const res = await fetch(`${API_BASE}/enfermedades/${idEnfermedad}`, { method: 'DELETE', headers });
     const text = await res.text(); const body = text? (()=>{ try{return JSON.parse(text);}catch(e){return text;} })() : null;
     if(!res.ok){ console.error('DELETE /enfermedades error', res.status, body); mostrarAlerta('Error eliminando enfermedad (ver consola)','error'); return false; }
     mostrarAlerta('Enfermedad eliminada correctamente','success');

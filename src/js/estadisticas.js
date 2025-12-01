@@ -16,7 +16,8 @@ async function getAuthHeadersLocal(){
 async function cargarEstadisticas(){
   // Intentar obtener desde backend
   try{
-    const res = await fetch('http://100.30.25.253:7000/estadisticas/animales', { headers: await getAuthHeadersLocal() });
+  const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
+    const res = await fetch(`${API_BASE}/estadisticas/animales`, { headers: await getAuthHeadersLocal() });
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     const totalVacas = data.total || 0;

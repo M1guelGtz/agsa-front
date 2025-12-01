@@ -1,4 +1,5 @@
 // Arreglo para almacenar animales
+const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
 let animales = [];
 
 // Selección de elementos
@@ -229,7 +230,7 @@ async function resolveUsuarioId(candidate) {
   // intentar obtener lista de usuarios y buscar coincidencia
   try {
     const token = localStorage.getItem('token') || '';
-    const res = await fetch('http://100.30.25.253:7000/usuarios', {
+    const res = await fetch(`${API_BASE}/usuarios`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -320,7 +321,7 @@ async function sendAnimalToBackend(animal) {
     // debug: mostrar payload en consola para diagnóstico
     console.debug('POST /animales payload', payload);
 
-    const res = await fetch('http://100.30.25.253:7000/animales', {
+    const res = await fetch(`${API_BASE}/animales`, {
       method: 'POST',
       headers,
       body: JSON.stringify(payload)
@@ -343,7 +344,7 @@ async function sendAnimalToBackend(animal) {
 async function fetchAnimalsFromBackend() {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch('http://100.30.25.253:7000/animales', {
+    const res = await fetch(`${API_BASE}/animales`, {
       method: 'GET',
       headers
     });
@@ -401,7 +402,7 @@ async function updateAnimalBackend(animalTemp, routeId) {
     // debug: mostrar payload en consola para diagnóstico
     console.debug('PUT /animales/' + id + ' payload', payload);
 
-    const res = await fetch(`http://100.30.25.253:7000/animales/${id}`, {
+    const res = await fetch(`${API_BASE}/animales/${id}`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(payload)
@@ -424,7 +425,7 @@ async function updateAnimalBackend(animalTemp, routeId) {
 async function deleteAnimalBackend(id) {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch(`http://100.30.25.253:7000/animales/${id}`, {
+    const res = await fetch(`${API_BASE}/animales/${id}`, {
       method: 'DELETE',
       headers
     });
