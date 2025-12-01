@@ -14,3 +14,5 @@
     return `${window.API_BASE}/${path}`;
   };
 })();
+
+export const API_BASE = 'http://52.70.236.29:7000';

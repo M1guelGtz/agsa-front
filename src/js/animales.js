@@ -1,5 +1,5 @@
 // Arreglo para almacenar animales
-const API_BASE = window.API_BASE;
+import { API_BASE } from "./config.js";
 let animales = [];
 
 // Selección de elementos
