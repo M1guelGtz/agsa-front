@@ -26,11 +26,10 @@ function getAuthHeadersLocal(){
   };
 }
 
-import {API_BASE} from "/ags-front/src/js/config.js";
 // Fetch animals from backend and map to local shape
 async function fetchAnimalesBackend(){
   try{
-    const res = await fetch(`${API_BASE}/animales`, { headers: getAuthHeadersLocal() });
+    const res = await fetch('http://52.70.236.29:7000/animales', { headers: getAuthHeadersLocal() });
     const text = await res.text();
     if(!res.ok){ console.error('Error cargando animales', res.status, text); return []; }
     let data = [];

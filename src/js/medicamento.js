@@ -1,4 +1,3 @@
-import {API_BASE} from "/ags-front/src/js/config.js";
 let medicamentos = [];
 
 const modal = document.getElementById('modalMedicamento');
@@ -454,7 +453,7 @@ function msToDateInput(ms) {
 async function fetchMedicamentosFromBackend(){
   try{
     console.debug('GET /medicamento — iniciando petición');
-    const res = await fetch(`${API_BASE}/medicamento`, {
+    const res = await fetch('http://52.70.236.29:7000/medicamento', {
       method: 'GET',
       headers: getAuthHeaders()
     });
@@ -524,7 +523,7 @@ async function sendMedicamentoToBackend(med){
   };
 
   console.debug('POST /medicamento payload', payload);
-  const res = await fetch(`${API_BASE}/medicamento`, {
+  const res = await fetch('http://52.70.236.29:7000/medicamento', {
     method: 'POST',
     headers: getAuthHeaders(),
     body: JSON.stringify(payload)
@@ -570,7 +569,7 @@ async function updateMedicamentoBackend(med, id){
     frecuenciaAplicacion: med.frecuencia || med.frecuenciaAplicacion
   };
   console.debug(`PUT /medicamento/${id} payload`, payload);
-  const res = await fetch(`${API_BASE}/medicamento/${id}`, {
+  const res = await fetch(`http://52.70.236.29:7000/medicamento/${id}`, {
     method: 'PUT',
     headers: getAuthHeaders(),
     body: JSON.stringify(payload)
@@ -600,7 +599,7 @@ async function deleteMedicamentoBackend(id){
   if(!id) return;
   try{
     console.debug(`DELETE /medicamento/${id}`);
-    const res = await fetch(`${API_BASE}/medicamento/${id}`, {
+    const res = await fetch(`http://52.70.236.29:7000/medicamento/${id}`, {
       method: 'DELETE',
       headers: getAuthHeaders()
     });

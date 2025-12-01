@@ -185,14 +185,13 @@ function volverHome() {
     window.location.href = './home.html';
 }
 
-import {API_BASE} from "/ags-front/src/js/config.js";
 // --- Helpers para auth y resolución de usuario ---
 async function resolveUsuarioId(candidate) {
     if (candidate == null || candidate === '') return '';
     if (!isNaN(Number(candidate))) return Number(candidate);
     try {
         const token = localStorage.getItem('token') || '';
-        const res = await fetch(`${API_BASE}/usuarios`, {
+        const res = await fetch('http://52.70.236.29:7000/usuarios', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -249,7 +248,7 @@ async function fetchUsuarioPerfil() {
         // Si candidate es numérico, intentar GET /usuarios/{id}
         if (candidate && !isNaN(Number(candidate))) {
             const id = Number(candidate);
-            const res = await fetch(`${API_BASE}/usuarios/${id}`, { method: 'GET', headers });
+            const res = await fetch(`http://52.70.236.29:7000/usuarios/${id}`, { method: 'GET', headers });
             if (res.ok) {
                 const obj = await res.json().catch(() => null);
                 if (obj) return obj;
@@ -257,7 +256,7 @@ async function fetchUsuarioPerfil() {
         }
 
         // Si no se obtuvo por id, buscar en la lista
-        const resAll = await fetch(`${API_BASE}/usuarios`, { method: 'GET', headers });
+        const resAll = await fetch('http://52.70.236.29:7000/usuarios', { method: 'GET', headers });
         if (!resAll.ok) return null;
         const list = await resAll.json().catch(() => null);
         if (!Array.isArray(list)) return null;

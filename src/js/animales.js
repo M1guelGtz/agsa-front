@@ -1,5 +1,4 @@
 // Arreglo para almacenar animales
-import { API_BASE } from "/ags-front/src/js/config.js";
 let animales = [];
 
 // Selección de elementos
@@ -230,7 +229,7 @@ async function resolveUsuarioId(candidate) {
   // intentar obtener lista de usuarios y buscar coincidencia
   try {
     const token = localStorage.getItem('token') || '';
-    const res = await fetch(`${API_BASE}/usuarios`, {
+    const res = await fetch('http://52.70.236.29:7000/usuarios', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -321,7 +320,7 @@ async function sendAnimalToBackend(animal) {
     // debug: mostrar payload en consola para diagnóstico
     console.debug('POST /animales payload', payload);
 
-    const res = await fetch(`${API_BASE}/animales`, {
+    const res = await fetch('http://52.70.236.29:7000/animales', {
       method: 'POST',
       headers,
       body: JSON.stringify(payload)
@@ -344,7 +343,7 @@ async function sendAnimalToBackend(animal) {
 async function fetchAnimalsFromBackend() {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch(`${API_BASE}/animales`, {
+    const res = await fetch('http://52.70.236.29:7000/animales', {
       method: 'GET',
       headers
     });
@@ -402,7 +401,7 @@ async function updateAnimalBackend(animalTemp, routeId) {
     // debug: mostrar payload en consola para diagnóstico
     console.debug('PUT /animales/' + id + ' payload', payload);
 
-    const res = await fetch(`${API_BASE}/animales/${id}`, {
+    const res = await fetch(`http://52.70.236.29:7000/animales/${id}`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(payload)
@@ -425,7 +424,7 @@ async function updateAnimalBackend(animalTemp, routeId) {
 async function deleteAnimalBackend(id) {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch(`${API_BASE}/animales/${id}`, {
+    const res = await fetch(`http://52.70.236.29:7000/animales/${id}`, {
       method: 'DELETE',
       headers
     });

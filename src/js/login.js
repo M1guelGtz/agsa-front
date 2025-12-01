@@ -1,8 +1,8 @@
-import { API_BASE } from "/ags-front/src/js/config.js";
 document.addEventListener('DOMContentLoaded', function() {
     
     // Verificar si ya hay una sesión activa
-
+   
+    
     // Seleccionar elementos del DOM
     const form = document.getElementById('loginForm');
     const toggleEye = document.querySelector('.toggle-eye');
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loginButton.disabled = true;
         (async () => {
             try {
-                const res = await fetch(`${API_BASE}/login`, {
+                const res = await fetch('http://52.70.236.29:7000/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nombre: usuario, contrasena: contraseña })

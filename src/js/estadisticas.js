@@ -13,11 +13,10 @@ async function getAuthHeadersLocal(){
   };
 }
 
-import {API_BASE} from "/ags-front/src/js/config.js";
 async function cargarEstadisticas(){
   // Intentar obtener desde backend
   try{
-    const res = await fetch(`${API_BASE}/estadisticas/animales`, { headers: await getAuthHeadersLocal() });
+    const res = await fetch('http://52.70.236.29:7000/estadisticas/animales', { headers: await getAuthHeadersLocal() });
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     const totalVacas = data.total || 0;
