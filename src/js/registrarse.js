@@ -1,4 +1,4 @@
-import {API_BASE} from "./config.js";
+import {API_BASE} from "/ags-front/src/js/config.js";
 const formRegistro = document.getElementById('formRegistro');
 const togglePassword = document.getElementById('togglePassword');
 const inputContrasena = document.getElementById('contrasena');

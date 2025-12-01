@@ -1,5 +1,5 @@
 // Arreglo para almacenar animales
-import { API_BASE } from "./config.js";
+import { API_BASE } from "/ags-front/src/js/config.js";
 let animales = [];
 
 // Selección de elementos

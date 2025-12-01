@@ -1,7 +1,7 @@
 // ============================================
 // SISTEMA DE ALERTAS PERSONALIZADAS
 // ============================================
-import {API_BASE} from "./config.js";
+import {API_BASE} from "/ags-front/src/js/config.js";
 // Crear el modal de alerta si no existe
 function crearModalAlerta() {
   if (document.getElementById('alertaPersonalizada')) return;

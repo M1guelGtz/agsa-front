@@ -1,4 +1,4 @@
-import { API_BASE } from "./config.js";
+import { API_BASE } from "/ags-front/src/js/config.js";
 document.addEventListener('DOMContentLoaded', function() {
     
     // Verificar si ya hay una sesión activa

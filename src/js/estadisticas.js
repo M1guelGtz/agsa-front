@@ -13,7 +13,7 @@ async function getAuthHeadersLocal(){
   };
 }
 
-import {API_BASE} from "./config.js";
+import {API_BASE} from "/ags-front/src/js/config.js";
 async function cargarEstadisticas(){
   // Intentar obtener desde backend
   try{
