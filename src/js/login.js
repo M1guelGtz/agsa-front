@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Verificar si ya hay una sesión activa
    
     
-    const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
+    const API_BASE = window.API_BASE;
     // Seleccionar elementos del DOM
     const form = document.getElementById('loginForm');
     const toggleEye = document.querySelector('.toggle-eye');

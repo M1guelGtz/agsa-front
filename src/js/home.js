@@ -29,7 +29,7 @@ function getAuthHeadersLocal(){
 // Fetch animals from backend and map to local shape
 async function fetchAnimalesBackend(){
   try{
-  const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
+  const API_BASE = window.API_BASE;
     const res = await fetch(`${API_BASE}/animales`, { headers: getAuthHeadersLocal() });
     const text = await res.text();
     if(!res.ok){ console.error('Error cargando animales', res.status, text); return []; }

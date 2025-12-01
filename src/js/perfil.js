@@ -191,7 +191,7 @@ async function resolveUsuarioId(candidate) {
     if (!isNaN(Number(candidate))) return Number(candidate);
     try {
         const token = localStorage.getItem('token') || '';
-    const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
+    const API_BASE = window.API_BASE;
         const res = await fetch(`${API_BASE}/usuarios`, {
             method: 'GET',
             headers: {

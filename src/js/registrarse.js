@@ -1,4 +1,4 @@
-const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
+const API_BASE = window.API_BASE;
 const formRegistro = document.getElementById('formRegistro');
 const togglePassword = document.getElementById('togglePassword');
 const inputContrasena = document.getElementById('contrasena');

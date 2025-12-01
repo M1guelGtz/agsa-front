@@ -78,7 +78,7 @@ document.addEventListener('keydown', (e) => {
 // ===========================
 
 // Arreglo para almacenar enfermedades
-const API_BASE = window.API_BASE || 'http://100.30.25.253:7000';
+const API_BASE = window.API_BASE;
 let enfermedades = [];
 
 // Selección de elementos

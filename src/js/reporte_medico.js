@@ -1,6 +1,7 @@
 // =====================
 // SISTEMA DE ALERTAS PERSONALIZADAS
 // =====================
+const API_BASE = window.API_BASE;
 function mostrarAlerta(tipo, titulo, mensaje) {
     const overlay = document.createElement("div");
     overlay.classList.add("alerta-overlay", "active");
