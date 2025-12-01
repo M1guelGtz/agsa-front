@@ -1,7 +1,7 @@
 // =====================
 // SISTEMA DE ALERTAS PERSONALIZADAS
 // =====================
-import API_BASE from "./config.js";
+import {API_BASE} from "./config.js";
 function mostrarAlerta(tipo, titulo, mensaje) {
     const overlay = document.createElement("div");
     overlay.classList.add("alerta-overlay", "active");

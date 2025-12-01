@@ -185,7 +185,7 @@ function volverHome() {
     window.location.href = './home.html';
 }
 
-import API_BASE from "./config.js";
+import {API_BASE} from "./config.js";
 // --- Helpers para auth y resolución de usuario ---
 async function resolveUsuarioId(candidate) {
     if (candidate == null || candidate === '') return '';
