@@ -13,10 +13,10 @@ async function getAuthHeadersLocal(){
   };
 }
 
+import API_BASE from "./config.js";
 async function cargarEstadisticas(){
   // Intentar obtener desde backend
   try{
-  const API_BASE = window.API_BASE;
     const res = await fetch(`${API_BASE}/estadisticas/animales`, { headers: await getAuthHeadersLocal() });
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();

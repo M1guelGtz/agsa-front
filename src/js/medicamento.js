@@ -1,4 +1,4 @@
-const API_BASE = window.API_BASE;
+import API_BASE from "./config.js";
 let medicamentos = [];
 
 const modal = document.getElementById('modalMedicamento');

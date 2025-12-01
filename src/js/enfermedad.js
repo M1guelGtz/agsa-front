@@ -78,7 +78,7 @@ document.addEventListener('keydown', (e) => {
 // ===========================
 
 // Arreglo para almacenar enfermedades
-const API_BASE = window.API_BASE;
+import API_BASE from "./config.js";
 let enfermedades = [];
 
 // Selección de elementos

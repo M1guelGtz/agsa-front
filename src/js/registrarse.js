@@ -1,4 +1,4 @@
-const API_BASE = window.API_BASE;
+import API_BASE from "./config.js";
 const formRegistro = document.getElementById('formRegistro');
 const togglePassword = document.getElementById('togglePassword');
 const inputContrasena = document.getElementById('contrasena');

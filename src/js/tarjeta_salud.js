@@ -1,8 +1,7 @@
 // ============================================
 // SISTEMA DE ALERTAS PERSONALIZADAS
 // ============================================
-
-const API_BASE = window.API_BASE;
+import API_BASE from "./config.js";
 // Crear el modal de alerta si no existe
 function crearModalAlerta() {
   if (document.getElementById('alertaPersonalizada')) return;

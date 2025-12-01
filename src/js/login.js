@@ -1,9 +1,8 @@
+import API_BASE from "./config.js";
 document.addEventListener('DOMContentLoaded', function() {
     
     // Verificar si ya hay una sesión activa
-   
-    
-    const API_BASE = window.API_BASE;
+
     // Seleccionar elementos del DOM
     const form = document.getElementById('loginForm');
     const toggleEye = document.querySelector('.toggle-eye');

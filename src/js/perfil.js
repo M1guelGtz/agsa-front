@@ -185,13 +185,13 @@ function volverHome() {
     window.location.href = './home.html';
 }
 
+import API_BASE from "./config.js";
 // --- Helpers para auth y resolución de usuario ---
 async function resolveUsuarioId(candidate) {
     if (candidate == null || candidate === '') return '';
     if (!isNaN(Number(candidate))) return Number(candidate);
     try {
         const token = localStorage.getItem('token') || '';
-    const API_BASE = window.API_BASE;
         const res = await fetch(`${API_BASE}/usuarios`, {
             method: 'GET',
             headers: {
